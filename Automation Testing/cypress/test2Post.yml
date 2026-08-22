@@ -1,0 +1,18 @@
+config:
+  target: "https://httpbin.org"
+  phases:
+    - duration: 1
+      arrivalRate: 1
+      name: Artillery First Test
+
+scenarios:
+  - name: POST example
+    flow:
+      - post:
+          url: "{{ target }}/post"
+          json:
+            username: "Test User"
+            password: "Temp Password"
+          expect:
+            - statusCode: 200
+

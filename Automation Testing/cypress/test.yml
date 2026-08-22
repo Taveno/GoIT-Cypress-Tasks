@@ -1,0 +1,12 @@
+config:
+  target: "https://postman-echo.com"
+  phases:
+    - duration: 1
+      arrivalRate: 1
+      name: Artillery First Test
+scenarios:
+  - name: Getting a resource
+    flow:
+      - get:
+          url: "{{ target }}/get"
+

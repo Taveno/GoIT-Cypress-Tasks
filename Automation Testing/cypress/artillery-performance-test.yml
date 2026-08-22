@@ -1,0 +1,46 @@
+config:
+  target: "https://postman-echo.com"
+  
+  # Cookie yönetimini devre dışı bırakıyoruz (Postman Echo cookie bug'ını çözer)
+  http:
+    extended:
+      cookieJar: false
+    timeout: 30
+
+  phases:
+    - duration: 5
+      arrivalRate: 1
+      rampTo: 3
+      name: "Ramp-up Phase"
+    - duration: 10
+      arrivalRate: 3
+      name: "Sustained Load Phase"
+
+  payload:
+    path: "./data.csv"
+    fields:
+      - "name"
+      - "role"
+    order: sequence
+
+  ensure:
+    thresholds:
+      - "http.response_time.p95": 2000
+      - "http.response_time.p99": 3500
+    conditions:
+      - expression: "http.codes.200 >= 95"
+      - expression: "vusers.failed == 0"
+
+scenarios:
+  - name: "Postman Echo GET ve POST Akisi"
+    flow:
+      - get:
+          url: "/get?test=performance"
+
+      - post:
+          url: "/post"
+          json:
+            user: "{{ name }}"
+            position: "{{ role }}"
+          headers:
+            Content-Type: "application/json"
