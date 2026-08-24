@@ -1,14 +1,15 @@
 name: CI-CD Pipeline
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 8 * * *"
+  workflow_dispatch: # manuel olarak kodu calistirmayi saglar
+  schedule: #kodu hangi zaman araliklariyla calistirmak istedigimizi belirler
+    - cron: "0 8 * * *" # her gun saat 08:00'da calisir
   push:
     branches:
       - main
   pull_request:
     
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,19 +20,19 @@ jobs:
 
       - name: Echo user login
         run: echo "Hello, ${{ github.actor }}!" 
-        
-  test:
+  test: #İkinci job
     runs-on: ubuntu-latest
     name: Cypress Test job
+    container:
+      image: cypress/base:latest #cypress docker cont. kuruldu.
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js #node.js kurulumu yapar
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
       - name: Install dependencies
         run: npm install
 
@@ -44,7 +45,7 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos/**/*.mp4
-          retention-days: 1
+          retention-days: 1 #video dosyalarinin kac gun saklanacagini belirler
 
       - name: Upload Cypress Screenshots
         if: always()
@@ -52,4 +53,4 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots/**/*.png
-          retention-days: 1
+          retention-days: 1 #ekran görüntülerinin kac gun saklanacagini belirler
