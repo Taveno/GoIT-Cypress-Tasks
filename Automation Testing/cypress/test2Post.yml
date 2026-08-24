@@ -1,18 +1,24 @@
 config:
-  target: "https://httpbin.org"
+  target: "https://postman-echo.com"
   phases:
     - duration: 1
       arrivalRate: 1
       name: Artillery First Test
-
 scenarios:
-  - name: POST example
+  - name: Getting a resource
     flow:
+      - get:
+          url: "{{ target }}/get"
       - post:
           url: "{{ target }}/post"
           json:
             username: "Test User"
             password: "Temp Password"
-          expect:
-            - statusCode: 200
+          capture:
+            - json: "$.json"
+              as: "request_body"
+            - json: "$.headers.Host"
+              as: "host"
+      - log: "Json value from response is: {{request_body}}"
+      - log: "Host value from response is: {{host}}"
 
