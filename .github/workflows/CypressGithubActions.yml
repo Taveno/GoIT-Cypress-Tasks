@@ -16,7 +16,7 @@ jobs:
     name: Build job
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Echo user login
         run: echo "Hello, ${{ github.actor }}!" 
@@ -26,12 +26,12 @@ jobs:
     
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js #node.js kurulumu yapar
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.18.0' #node.js versiyonu
+          node-version: '20' #node.js versiyonu
       - name: Install dependencies
         run: npm install
 
