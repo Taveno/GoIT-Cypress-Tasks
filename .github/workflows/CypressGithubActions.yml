@@ -23,8 +23,7 @@ jobs:
   test: #İkinci job
     runs-on: ubuntu-latest
     name: Cypress Test job
-    container:
-      image: cypress/base:latest #cypress docker cont. kuruldu.
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
