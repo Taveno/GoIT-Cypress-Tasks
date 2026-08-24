@@ -33,14 +33,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install dependencies #gerekli bağımlılıkların yüklenmesi
-        uses: npm install
+      - name: Install dependencies
+        run: npm install
 
       - name: Run Cypress Tests
-        uses: npx cypress run --spec "cypress/e2e/**/*" #cypress testlerini calistirir    
+        run: npx cypress run --spec "cypress/e2e/**/*"
 
       - name: Upload Cypress Videos
-         if: always() #her zaman calisir
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
@@ -48,7 +48,7 @@ jobs:
           retention-days: 1 #video dosyalarinin kac gun saklanacagini belirler
 
       - name: Upload Cypress Screenshots
-         if: always() #her zaman calisir
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
