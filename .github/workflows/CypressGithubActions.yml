@@ -31,7 +31,7 @@ jobs:
       - name: Set up Node.js #node.js kurulumu yapar
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18.18.0' #node.js versiyonu
       - name: Install dependencies
         run: npm install
 
