@@ -1,5 +1,5 @@
 {
-  "name": "automation-testing",
+  "name": "cucumberproject",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,11 +7,8 @@
     "test": "cucumber-js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@cucumber/cucumber": "^13.2.1",
-    "cypress": "^15.17.0"
+    "@cucumber/cucumber": "^13.2.1"
   }
 }
